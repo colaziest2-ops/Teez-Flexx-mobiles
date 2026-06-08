@@ -1,0 +1,108 @@
+{
+  "theme": "Light",
+  "archetype": "4 (Swiss & High-Contrast) + Premium Apple-style modifications",
+  "reasoning": "Teez-Flexx Mobiles needs a premium, trustworthy (iStore-like) but accessible (Back Market-like) aesthetic. A clean white/slate foundation with deep blue for authority and emerald green for trust/action creates a high-conversion, professional environment.",
+  "colors": {
+    "background": "bg-slate-50",
+    "surface": "bg-white",
+    "surface_secondary": "bg-slate-100",
+    "text_primary": "text-slate-900",
+    "text_secondary": "text-slate-500",
+    "brand_primary": "bg-slate-900",
+    "brand_primary_text": "text-white",
+    "brand_primary_hover": "hover:bg-slate-800 hover:text-white",
+    "accent_success": "bg-emerald-600",
+    "accent_success_text": "text-white",
+    "accent_success_hover": "hover:bg-emerald-700 hover:text-white",
+    "border_color": "border-slate-200"
+  },
+  "typography": {
+    "headings": {
+      "font_family": "font-sans",
+      "google_font": "Outfit",
+      "weight_strategy": "font-medium to font-bold",
+      "tracking": "tracking-tight"
+    },
+    "body": {
+      "font_family": "font-sans",
+      "google_font": "Manrope",
+      "weight_strategy": "font-normal",
+      "tracking": "tracking-normal"
+    },
+    "banned_fonts": ["Inter", "Roboto", "Open Sans"]
+  },
+  "layout_and_spacing": {
+    "generous_spacing": true,
+    "container_padding": "p-6 md:p-12",
+    "grid_strategy": "Bento Grid (Tetris Mode) for Hero/Categories, Control Room Grid for Product listings",
+    "border_radius": "rounded-2xl to rounded-3xl for cards, rounded-full for primary buttons (Apple-style pill buttons)"
+  },
+  "components": {
+    "cards": {
+      "style": "bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 rounded-3xl p-8"
+    },
+    "buttons": {
+      "primary": "rounded-full px-8 py-4 font-semibold transition-all hover:scale-105 active:scale-95",
+      "secondary": "rounded-full border-2 border-slate-200 hover:border-slate-900 px-8 py-4 font-semibold transition-all"
+    },
+    "forms": {
+      "inputs": "bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent px-4 py-3"
+    },
+    "header": {
+      "style": "sticky top-0 z-50 backdrop-blur-xl bg-white/70 border-b border-slate-200/50"
+    }
+  },
+  "interactive_elements": {
+    "hover_states": "All cards and buttons must have hover states (e.g., translate-y-[-2px] or shadow elevation).",
+    "data_testids": "CRITICAL: All interactive and key informational elements MUST include a data-testid attribute in kebab-case."
+  },
+  "media": {
+    "hero_backgrounds": [
+      {
+        "url": "https://images.pexels.com/photos/265658/pexels-photo-265658.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "hero_workspace",
+        "description": "Elegant Apple iPhone next to a MacBook on a wooden desk"
+      }
+    ],
+    "services": [
+      {
+        "url": "https://images.unsplash.com/photo-1550041473-d296a3a8a18a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MjJ8MHwxfHNlYXJjaHwxfHxzbWFydHBob25lJTIwcmVwYWlyJTIwdG9vbHN8ZW58MHx8fHwxNzgwOTEwNzE4fDA&ixlib=rb-4.1.0&q=85",
+        "category": "diagnostic_repair",
+        "description": "Man repairing an Android smartphone"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1605636808063-ba999ff935eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwyfHxpcGhvbmUlMjBvbiUyMGRlc2t8ZW58MHx8fHwxNzgwOTEwNzE4fDA&ixlib=rb-4.1.0&q=85",
+        "category": "buy_iphones",
+        "description": "Silver iPhone 6 on white table"
+      },
+      {
+        "url": "https://images.pexels.com/photos/8473866/pexels-photo-8473866.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "sell_trade_in",
+        "description": "Overhead view of modern workspace with phone"
+      }
+    ],
+    "products": [
+      {
+        "url": "https://images.pexels.com/photos/34444234/pexels-photo-34444234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "phone_covers_gallery",
+        "description": "Variety of colorful phone cases displayed on a wall"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1535157412991-2ef801c1748b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwxfHxjb2xvcmZ1bCUyMHBob25lJTIwY2FzZXN8ZW58MHx8fHwxNzgwOTEwNzE4fDA&ixlib=rb-4.1.0&q=85",
+        "category": "phone_covers_gallery_alt",
+        "description": "Four assorted-color iPhone cases"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Install Google Fonts 'Outfit' and 'Manrope' in index.html.",
+    "Install lucide-react for standard icons.",
+    "CRITICAL User Flow: The homepage MUST feature 3 prominent, high-impact service selection cards immediately below the hero tagline: (1) Get a Diagnostic, (2) Buy an iPhone, (3) Sell Your iPhone.",
+    "Implement a sticky 'backdrop-blur-xl' navigation bar with the logo and key links.",
+    "Implement a prominent floating WhatsApp button fixed to the bottom right for inquiries.",
+    "For the E-commerce flow, use a grid layout for products with filters on the left (condition, storage, color).",
+    "Use Shadcn UI for forms (Diagnostic, Trade-In), but round the inputs using rounded-xl to match the premium Apple aesthetic.",
+    "Add data-testid attributes to ALL buttons, links, and forms for testing."
+  ]
+}
+
