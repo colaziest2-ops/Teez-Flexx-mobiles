@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { createClient } from '@supabase/supabase-js';
 import { Check, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.REACT_APP_SUPABASE_ANON_KEY
+);
 
 const ProductDetailPage = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
   const { user } = useAuth();
   const { addToCart } = useCart();
   const navigate = useNavigate();
@@ -27,8 +26,14 @@ const ProductDetailPage = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(`${API}/products/${productId}`);
-      setProduct(response.data);
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('id', productId)
+        .single();
+
+      if (error) throw error;
+      setProduct(data);
     } catch (error) {
       console.error('Failed to fetch product:', error);
       toast.error('Product not found');
@@ -81,19 +86,19 @@ const ProductDetailPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
             <div
-              className="relative bg-white border border-slate-200 rounded-3xl overflow-hidden cursor-zoom-in"
-              onClick={() => setLightboxOpen(true)}
+              className="relative bg-white border border-slate-200 rounded-3xl overflow-hidden"
               data-testid="product-image"
             >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-auto image-zoom"
-              />
-              {product.original_price && (
-                <span className="badge-discount" data-testid="product-detail-discount">
-                  Save R{product.original_price - product.price}
-                </span>
+              {product.image_url ? (
+                <img
+                  src={product.image_url}
+                  alt={`${product.model} ${product.storage}`}
+                  className="w-full h-auto"
+                />
+              ) : (
+                <div className="w-full h-80 flex items-center justify-center text-slate-400 text-sm">
+                  No image available
+                </div>
               )}
             </div>
           </div>
@@ -106,21 +111,16 @@ const ProductDetailPage = () => {
             </div>
 
             <div>
-              <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4" data-testid="product-detail-name">
-                {product.name}
+              <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2" data-testid="product-detail-name">
+                {product.model}
               </h1>
-              <p className="text-slate-600" data-testid="product-detail-description">{product.description}</p>
+              <p className="text-slate-500">{product.storage} · {product.color}</p>
             </div>
 
             <div className="flex items-baseline gap-3">
               <span className="text-4xl font-bold text-slate-900" data-testid="product-detail-price">
-                R{product.price.toLocaleString()}
+                R{product.price?.toLocaleString()}
               </span>
-              {product.original_price && (
-                <span className="text-xl text-slate-400 line-through" data-testid="product-detail-original-price">
-                  R{product.original_price.toLocaleString()}
-                </span>
-              )}
             </div>
 
             <div className="grid grid-cols-2 gap-4 bg-slate-100 p-6 rounded-2xl">
@@ -137,46 +137,22 @@ const ProductDetailPage = () => {
                 <p className="font-semibold text-slate-900" data-testid="product-detail-color">{product.color}</p>
               </div>
               <div>
-                <p className="text-sm text-slate-600 mb-1">Stock</p>
-                <p className="font-semibold text-emerald-600" data-testid="product-detail-stock">
-                  {product.stock > 0 ? `${product.stock} Available` : 'Out of Stock'}
-                </p>
+                <p className="text-sm text-slate-600 mb-1">Condition</p>
+                <p className="font-semibold text-emerald-600">{product.condition}</p>
               </div>
             </div>
 
-            {product.features && product.features.length > 0 && (
-              <div className="bg-white border border-slate-200 p-6 rounded-2xl">
-                <h3 className="font-bold text-lg mb-4">Key Features</h3>
-                <ul className="space-y-3">
-                  {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-center space-x-3" data-testid={`product-feature-${index}`}>
-                      <Check className="h-5 w-5 text-emerald-600" />
-                      <span className="text-slate-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
             <Button
               onClick={handleAddToCart}
-              disabled={product.stock === 0}
               className="w-full rounded-full bg-emerald-600 hover:bg-emerald-700 text-white py-6 text-lg font-semibold"
               data-testid="product-detail-add-to-cart-btn"
             >
               <ShoppingCart className="h-5 w-5 mr-2" />
-              {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+              Add to Cart
             </Button>
           </div>
         </div>
       </div>
-
-      {lightboxOpen && (
-        <Lightbox
-          mainSrc={product.image}
-          onCloseRequest={() => setLightboxOpen(false)}
-        />
-      )}
     </div>
   );
 };
