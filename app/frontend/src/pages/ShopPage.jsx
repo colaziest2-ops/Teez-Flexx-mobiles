@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { createClient } from '@supabase/supabase-js';
 import { Filter, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.REACT_APP_SUPABASE_ANON_KEY
+);
 
 const ShopPage = () => {
   const [products, setProducts] = useState([]);
@@ -18,7 +20,7 @@ const ShopPage = () => {
     condition: '',
     model: '',
     storage: '',
-    category: ''
+    color: ''
   });
   const [showFilters, setShowFilters] = useState(false);
   const navigate = useNavigate();
@@ -35,9 +37,14 @@ const ShopPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${API}/products`);
-      setProducts(response.data);
-      setFilteredProducts(response.data);
+      const { data, error } = await supabase
+        .from('products')
+        .select('*');
+
+      if (error) throw error;
+
+      setProducts(data || []);
+      setFilteredProducts(data || []);
     } catch (error) {
       console.error('Failed to fetch products:', error);
       toast.error('Failed to load products');
@@ -58,8 +65,8 @@ const ShopPage = () => {
     if (filters.storage) {
       filtered = filtered.filter(p => p.storage === filters.storage);
     }
-    if (filters.category) {
-      filtered = filtered.filter(p => p.category === filters.category);
+    if (filters.color) {
+      filtered = filtered.filter(p => p.color === filters.color);
     }
 
     setFilteredProducts(filtered);
@@ -70,7 +77,7 @@ const ShopPage = () => {
   };
 
   const clearFilters = () => {
-    setFilters({ condition: '', model: '', storage: '', category: '' });
+    setFilters({ condition: '', model: '', storage: '', color: '' });
   };
 
   const handleAddToCart = async (productId) => {
@@ -88,10 +95,10 @@ const ShopPage = () => {
     }
   };
 
-  const uniqueModels = [...new Set(products.map(p => p.model))];
-  const uniqueStorages = [...new Set(products.map(p => p.storage))];
-  const uniqueConditions = [...new Set(products.map(p => p.condition))];
-  const uniqueCategories = [...new Set(products.map(p => p.category))];
+  const uniqueModels = [...new Set(products.map(p => p.model).filter(Boolean))];
+  const uniqueStorages = [...new Set(products.map(p => p.storage).filter(Boolean))];
+  const uniqueConditions = [...new Set(products.map(p => p.condition).filter(Boolean))];
+  const uniqueColors = [...new Set(products.map(p => p.color).filter(Boolean))];
 
   if (loading) {
     return (
@@ -122,19 +129,6 @@ const ShopPage = () => {
             </div>
 
             <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Category</label>
-                <select
-                  value={filters.category}
-                  onChange={(e) => handleFilterChange('category', e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  data-testid="filter-category"
-                >
-                  <option value="">All Categories</option>
-                  {uniqueCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                </select>
-              </div>
-
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">Condition</label>
                 <select
@@ -174,6 +168,19 @@ const ShopPage = () => {
                 </select>
               </div>
 
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Color</label>
+                <select
+                  value={filters.color}
+                  onChange={(e) => handleFilterChange('color', e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  data-testid="filter-color"
+                >
+                  <option value="">All Colors</option>
+                  {uniqueColors.map(color => <option key={color} value={color}>{color}</option>)}
+                </select>
+              </div>
+
               <Button
                 onClick={clearFilters}
                 variant="outline"
@@ -204,23 +211,22 @@ const ShopPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
                 <div
-                  key={product.product_id}
+                  key={product.id}
                   className="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg"
-                  data-testid={`product-card-${product.product_id}`}
+                  data-testid={`product-card-${product.id}`}
                 >
                   <div
-                    className="relative h-56 cursor-pointer"
-                    onClick={() => navigate(`/product/${product.product_id}`)}
+                    className="relative h-56 cursor-pointer bg-slate-100 flex items-center justify-center"
+                    onClick={() => navigate(`/product/${product.id}`)}
                   >
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                    {product.original_price && (
-                      <span className="badge-discount" data-testid={`product-discount-${product.product_id}`}>
-                        Save R{product.original_price - product.price}
-                      </span>
+                    {product.image_url ? (
+                      <img
+                        src={product.image_url}
+                        alt={`${product.model} ${product.storage}`}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-slate-400 text-sm">No image</div>
                     )}
                   </div>
                   <div className="p-6">
@@ -230,26 +236,24 @@ const ShopPage = () => {
                       </span>
                     </div>
                     <h3
-                      className="font-bold text-slate-900 mb-2 cursor-pointer hover:text-slate-700"
-                      onClick={() => navigate(`/product/${product.product_id}`)}
-                      data-testid={`product-name-${product.product_id}`}
+                      className="font-bold text-slate-900 mb-1 cursor-pointer hover:text-slate-700"
+                      onClick={() => navigate(`/product/${product.id}`)}
+                      data-testid={`product-name-${product.id}`}
                     >
-                      {product.name}
+                      {product.model}
                     </h3>
+                    <p className="text-sm text-slate-500 mb-3">
+                      {product.storage} · {product.color}
+                    </p>
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-2xl font-bold text-slate-900" data-testid={`product-price-${product.product_id}`}>
-                        R{product.price.toLocaleString()}
+                      <span className="text-2xl font-bold text-slate-900" data-testid={`product-price-${product.id}`}>
+                        R{product.price?.toLocaleString()}
                       </span>
-                      {product.original_price && (
-                        <span className="text-sm text-slate-400 line-through">
-                          R{product.original_price.toLocaleString()}
-                        </span>
-                      )}
                     </div>
                     <Button
-                      onClick={() => handleAddToCart(product.product_id)}
+                      onClick={() => handleAddToCart(product.id)}
                       className="w-full rounded-full bg-slate-900 hover:bg-slate-800 text-white"
-                      data-testid={`add-to-cart-btn-${product.product_id}`}
+                      data-testid={`add-to-cart-btn-${product.id}`}
                     >
                       Add to Cart
                     </Button>
