@@ -1,0 +1,10 @@
+{
+  "buildCommand": "next build",
+  "devCommand": "next dev",
+  "installCommand": "yarn install",
+  "framework": "nextjs",
+  "nodeVersion": "20.x",
+  "projectSettings": {
+    "sourceFilesOutsideRootDirectory": true
+  }
+}
