@@ -1,278 +1,323 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
-import { Filter, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/context/AuthContext';
-import { useCart } from '@/context/CartContext';
-import { toast } from 'sonner';
+import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { ShoppingCart, ChevronRight } from 'lucide-react';
 
-const supabase = createClient(
-  process.env.REACT_APP_SUPABASE_URL,
-  process.env.REACT_APP_SUPABASE_ANON_KEY
+const SUPABASE_BASE =
+  'https://qphtpwbmgadegkhkhxua.supabase.co/storage/v1/object/public/product-images';
+
+const COLOUR_META = {
+  'black':              { label: 'Black',              hex: '#1a1a1a' },
+  'white':              { label: 'White',              hex: '#f5f5f0' },
+  'silver':             { label: 'Silver',             hex: '#c0c0c0' },
+  'gold':               { label: 'Gold',               hex: '#d4af70' },
+  'space-grey':         { label: 'Space Grey',         hex: '#6e6e73' },
+  'graphite':           { label: 'Graphite',           hex: '#4e4e52' },
+  'space-black':        { label: 'Space Black',        hex: '#2c2c2e' },
+  'black-titanium':     { label: 'Black Titanium',     hex: '#2c2c2e' },
+  'white-titanium':     { label: 'White Titanium',     hex: '#e8e5de' },
+  'blue-titanium':      { label: 'Blue Titanium',      hex: '#5b6b7a' },
+  'natural-titanium':   { label: 'Natural Titanium',   hex: '#a89a88' },
+  'desert-titanium':    { label: 'Desert Titanium',    hex: '#c4a882' },
+  'blue':               { label: 'Blue',               hex: '#4a90d9' },
+  'sierra-blue':        { label: 'Sierra Blue',        hex: '#9ab8cd' },
+  'pacific-blue':       { label: 'Pacific Blue',       hex: '#2e5f7a' },
+  'ultramarine':        { label: 'Ultramarine',        hex: '#3a4f8a' },
+  'green':              { label: 'Green',              hex: '#4caf7d' },
+  'midnight-green':     { label: 'Midnight Green',     hex: '#3a4f42' },
+  'alpine-green':       { label: 'Alpine Green',       hex: '#576856' },
+  'teal':               { label: 'Teal',               hex: '#3a8a8a' },
+  'pink':               { label: 'Pink',               hex: '#f5b8c4' },
+  'purple':             { label: 'Purple',             hex: '#9b59b6' },
+  'deep-purple':        { label: 'Deep Purple',        hex: '#3d2060' },
+  'yellow':             { label: 'Yellow',             hex: '#f5e642' },
+  'red':                { label: 'Red',                hex: '#d0021b' },
+  'starlight':          { label: 'Starlight',          hex: '#f1ece2' },
+  'midnight':           { label: 'Midnight',           hex: '#1a2232' },
+};
+
+const IPHONE_DATA = {
+  'iPhone 11': {
+    generation: 11,
+    variants: [
+      { slug: 'iphone-11',         label: 'iPhone 11',         colours: ['black','white','yellow','green','purple','red'],                                    storages: ['64GB','128GB','256GB'],       prices: { '64GB':5999,  '128GB':6999,  '256GB':8499  } },
+      { slug: 'iphone-11-pro',     label: 'iPhone 11 Pro',     colours: ['midnight-green','space-grey','silver','gold'],                                      storages: ['64GB','256GB','512GB'],       prices: { '64GB':7999,  '256GB':9499,  '512GB':11499 } },
+      { slug: 'iphone-11-pro-max', label: 'iPhone 11 Pro Max', colours: ['midnight-green','space-grey','silver','gold'],                                      storages: ['64GB','256GB','512GB'],       prices: { '64GB':9499,  '256GB':10999, '512GB':12999 } },
+    ],
+  },
+  'iPhone 12': {
+    generation: 12,
+    variants: [
+      { slug: 'iphone-12-mini',    label: 'iPhone 12 mini',    colours: ['black','white','blue','green','red','purple'],                                      storages: ['64GB','128GB','256GB'],       prices: { '64GB':7499,  '128GB':8499,  '256GB':9999  } },
+      { slug: 'iphone-12',         label: 'iPhone 12',         colours: ['black','white','blue','green','red','purple'],                                      storages: ['64GB','128GB','256GB'],       prices: { '64GB':8999,  '128GB':9999,  '256GB':11499 } },
+      { slug: 'iphone-12-pro',     label: 'iPhone 12 Pro',     colours: ['graphite','silver','gold','pacific-blue'],                                          storages: ['128GB','256GB','512GB'],      prices: { '128GB':11999,'256GB':13499, '512GB':15499 } },
+      { slug: 'iphone-12-pro-max', label: 'iPhone 12 Pro Max', colours: ['graphite','silver','gold','pacific-blue'],                                          storages: ['128GB','256GB','512GB'],      prices: { '128GB':13499,'256GB':14999, '512GB':16999 } },
+    ],
+  },
+  'iPhone 13': {
+    generation: 13,
+    variants: [
+      { slug: 'iphone-13-mini',    label: 'iPhone 13 mini',    colours: ['midnight','starlight','blue','pink','green','red'],                                 storages: ['128GB','256GB','512GB'],      prices: { '128GB':9999, '256GB':11499, '512GB':13499 } },
+      { slug: 'iphone-13',         label: 'iPhone 13',         colours: ['midnight','starlight','blue','pink','green','red'],                                 storages: ['128GB','256GB','512GB'],      prices: { '128GB':11999,'256GB':13499, '512GB':15499 } },
+      { slug: 'iphone-13-pro',     label: 'iPhone 13 Pro',     colours: ['graphite','silver','gold','sierra-blue','alpine-green'],                            storages: ['128GB','256GB','512GB','1TB'],prices: { '128GB':14999,'256GB':16499, '512GB':18499, '1TB':20999 } },
+      { slug: 'iphone-13-pro-max', label: 'iPhone 13 Pro Max', colours: ['graphite','silver','gold','sierra-blue','alpine-green'],                            storages: ['128GB','256GB','512GB','1TB'],prices: { '128GB':16499,'256GB':17999, '512GB':19999, '1TB':22499 } },
+    ],
+  },
+  'iPhone 14': {
+    generation: 14,
+    variants: [
+      { slug: 'iphone-14',         label: 'iPhone 14',         colours: ['midnight','starlight','blue','purple','yellow','red'],                              storages: ['128GB','256GB','512GB'],      prices: { '128GB':14999,'256GB':16499, '512GB':18999 } },
+      { slug: 'iphone-14-plus',    label: 'iPhone 14 Plus',    colours: ['midnight','starlight','blue','purple','yellow','red'],                              storages: ['128GB','256GB','512GB'],      prices: { '128GB':16999,'256GB':18499, '512GB':20999 } },
+      { slug: 'iphone-14-pro',     label: 'iPhone 14 Pro',     colours: ['space-black','silver','gold','deep-purple'],                                        storages: ['128GB','256GB','512GB','1TB'],prices: { '128GB':18999,'256GB':20499, '512GB':22999, '1TB':25499 } },
+      { slug: 'iphone-14-pro-max', label: 'iPhone 14 Pro Max', colours: ['space-black','silver','gold','deep-purple'],                                        storages: ['128GB','256GB','512GB','1TB'],prices: { '128GB':20999,'256GB':22499, '512GB':24999, '1TB':27499 } },
+    ],
+  },
+  'iPhone 15': {
+    generation: 15,
+    variants: [
+      { slug: 'iphone-15',         label: 'iPhone 15',         colours: ['black','blue','green','yellow','pink'],                                             storages: ['128GB','256GB','512GB'],      prices: { '128GB':19999,'256GB':21499, '512GB':23999 } },
+      { slug: 'iphone-15-plus',    label: 'iPhone 15 Plus',    colours: ['black','blue','green','yellow','pink'],                                             storages: ['128GB','256GB','512GB'],      prices: { '128GB':21999,'256GB':23499, '512GB':25999 } },
+      { slug: 'iphone-15-pro',     label: 'iPhone 15 Pro',     colours: ['black-titanium','white-titanium','blue-titanium','natural-titanium'],               storages: ['128GB','256GB','512GB','1TB'],prices: { '128GB':24999,'256GB':26499, '512GB':28999, '1TB':31499 } },
+      { slug: 'iphone-15-pro-max', label: 'iPhone 15 Pro Max', colours: ['black-titanium','white-titanium','blue-titanium','natural-titanium'],               storages: ['256GB','512GB','1TB'],        prices: { '256GB':28499,'512GB':30999, '1TB':33499   } },
+    ],
+  },
+  'iPhone 16': {
+    generation: 16,
+    variants: [
+      { slug: 'iphone-16',         label: 'iPhone 16',         colours: ['black','white','ultramarine','teal','pink'],                                        storages: ['128GB','256GB','512GB'],      prices: { '128GB':22999,'256GB':24499, '512GB':26999 } },
+      { slug: 'iphone-16-plus',    label: 'iPhone 16 Plus',    colours: ['black','white','ultramarine','teal','pink'],                                        storages: ['128GB','256GB','512GB'],      prices: { '128GB':24999,'256GB':26499, '512GB':28999 } },
+      { slug: 'iphone-16-pro',     label: 'iPhone 16 Pro',     colours: ['black-titanium','white-titanium','natural-titanium','desert-titanium'],             storages: ['128GB','256GB','512GB','1TB'],prices: { '128GB':27999,'256GB':29499, '512GB':31999, '1TB':34499 } },
+      { slug: 'iphone-16-pro-max', label: 'iPhone 16 Pro Max', colours: ['black-titanium','white-titanium','natural-titanium','desert-titanium'],             storages: ['256GB','512GB','1TB'],        prices: { '256GB':31499,'512GB':33999, '1TB':36499   } },
+    ],
+  },
+};
+
+const GENERATIONS = Object.keys(IPHONE_DATA).sort(
+  (a, b) => IPHONE_DATA[b].generation - IPHONE_DATA[a].generation
 );
 
+function imageUrl(modelSlug, colourSlug) {
+  return `${SUPABASE_BASE}/${modelSlug}/${colourSlug}.jpg`;
+}
+
 const ShopPage = () => {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({
-    condition: '',
-    model: '',
-    storage: '',
-    color: ''
-  });
-  const [showFilters, setShowFilters] = useState(false);
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  const { addToCart } = useCart();
+  const firstGen = GENERATIONS[0];
+  const firstVariant = IPHONE_DATA[firstGen].variants[0];
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const [selectedGen, setSelectedGen] = useState(firstGen);
+  const [selectedVariantSlug, setSelectedVariantSlug] = useState(firstVariant.slug);
+  const [selectedColour, setSelectedColour] = useState(firstVariant.colours[0]);
+  const [selectedStorage, setSelectedStorage] = useState(firstVariant.storages[0]);
 
-  useEffect(() => {
-    applyFilters();
-  }, [filters, products]);
+  const variants = useMemo(() => IPHONE_DATA[selectedGen].variants, [selectedGen]);
 
-  const fetchProducts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*');
+  const variant = useMemo(
+    () => variants.find((v) => v.slug === selectedVariantSlug) || variants[0],
+    [variants, selectedVariantSlug]
+  );
 
-      if (error) throw error;
+  const price = variant.prices[selectedStorage] || Object.values(variant.prices)[0];
 
-      setProducts(data || []);
-      setFilteredProducts(data || []);
-    } catch (error) {
-      console.error('Failed to fetch products:', error);
-      toast.error('Failed to load products');
-    } finally {
-      setLoading(false);
-    }
+  const handleGenChange = (gen) => {
+    const firstV = IPHONE_DATA[gen].variants[0];
+    setSelectedGen(gen);
+    setSelectedVariantSlug(firstV.slug);
+    setSelectedColour(firstV.colours[0]);
+    setSelectedStorage(firstV.storages[0]);
   };
 
-  const applyFilters = () => {
-    let filtered = [...products];
-
-    if (filters.condition) {
-      filtered = filtered.filter(p => p.condition === filters.condition);
-    }
-    if (filters.model) {
-      filtered = filtered.filter(p => p.model === filters.model);
-    }
-    if (filters.storage) {
-      filtered = filtered.filter(p => p.storage === filters.storage);
-    }
-    if (filters.color) {
-      filtered = filtered.filter(p => p.color === filters.color);
-    }
-
-    setFilteredProducts(filtered);
+  const handleVariantChange = (slug) => {
+    const v = IPHONE_DATA[selectedGen].variants.find((x) => x.slug === slug);
+    setSelectedVariantSlug(slug);
+    setSelectedColour(v.colours[0]);
+    setSelectedStorage(v.storages[0]);
   };
 
-  const handleFilterChange = (key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-  };
-
-  const clearFilters = () => {
-    setFilters({ condition: '', model: '', storage: '', color: '' });
-  };
-
-  const handleAddToCart = async (productId) => {
-    if (!user) {
-      toast.error('Please login to add items to cart');
-      navigate('/login');
-      return;
-    }
-
-    try {
-      await addToCart(productId, 1);
-      toast.success('Added to cart!');
-    } catch (error) {
-      toast.error('Failed to add to cart');
-    }
-  };
-
-  const uniqueModels = [...new Set(products.map(p => p.model).filter(Boolean))];
-  const uniqueStorages = [...new Set(products.map(p => p.storage).filter(Boolean))];
-  const uniqueConditions = [...new Set(products.map(p => p.condition).filter(Boolean))];
-  const uniqueColors = [...new Set(products.map(p => p.color).filter(Boolean))];
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-900 mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading products...</p>
-        </div>
-      </div>
-    );
-  }
+  const imgSrc = imageUrl(variant.slug, selectedColour);
+  const colourLabel = (COLOUR_META[selectedColour] || {}).label || selectedColour;
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2" data-testid="shop-page-title">Shop iPhones</h1>
-          <p className="text-slate-600">Find your perfect iPhone from our extensive collection</p>
+    <div className="min-h-screen bg-slate-50">
+      {/* Header */}
+      <section className="bg-white border-b border-slate-100 py-10 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-4xl font-bold text-slate-900 mb-1">Shop iPhones</h1>
+          <p className="text-slate-500">Choose your model, colour and storage</p>
         </div>
+      </section>
 
-        <div className="flex gap-8">
-          <aside className={`${showFilters ? 'block' : 'hidden'} md:block w-full md:w-64 bg-white border border-slate-200 rounded-2xl p-6 h-fit sticky top-24`}>
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="font-bold text-lg">Filters</h3>
-              <button onClick={() => setShowFilters(false)} className="md:hidden" data-testid="close-filters-btn">
-                <X className="h-5 w-5" />
-              </button>
+      <section className="max-w-6xl mx-auto px-6 py-10">
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
+
+          {/* Left: Image */}
+          <div className="sticky top-24">
+            <div className="bg-white rounded-3xl border border-slate-100 aspect-square overflow-hidden shadow-sm flex items-center justify-center">
+              <img
+                key={imgSrc}
+                src={imgSrc}
+                alt={`${variant.label} in ${colourLabel}`}
+                className="w-full h-full object-cover transition-opacity duration-300"
+                onError={(e) => {
+                  e.target.src =
+                    'https://images.unsplash.com/photo-1592286927505-1def25115558?w=800';
+                }}
+              />
             </div>
 
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Condition</label>
-                <select
-                  value={filters.condition}
-                  onChange={(e) => handleFilterChange('condition', e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  data-testid="filter-condition"
-                >
-                  <option value="">All Conditions</option>
-                  {uniqueConditions.map(cond => <option key={cond} value={cond}>{cond}</option>)}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Model</label>
-                <select
-                  value={filters.model}
-                  onChange={(e) => handleFilterChange('model', e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  data-testid="filter-model"
-                >
-                  <option value="">All Models</option>
-                  {uniqueModels.map(model => <option key={model} value={model}>{model}</option>)}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Storage</label>
-                <select
-                  value={filters.storage}
-                  onChange={(e) => handleFilterChange('storage', e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  data-testid="filter-storage"
-                >
-                  <option value="">All Storage</option>
-                  {uniqueStorages.map(storage => <option key={storage} value={storage}>{storage}</option>)}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Color</label>
-                <select
-                  value={filters.color}
-                  onChange={(e) => handleFilterChange('color', e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  data-testid="filter-color"
-                >
-                  <option value="">All Colors</option>
-                  {uniqueColors.map(color => <option key={color} value={color}>{color}</option>)}
-                </select>
-              </div>
-
-              <Button
-                onClick={clearFilters}
-                variant="outline"
-                className="w-full rounded-full"
-                data-testid="clear-filters-btn"
-              >
-                Clear Filters
-              </Button>
+            {/* Colour dots */}
+            <div className="flex gap-2 mt-4 flex-wrap justify-center">
+              {variant.colours.map((c) => {
+                const meta = COLOUR_META[c] || { hex: '#ccc' };
+                return (
+                  <button
+                    key={c}
+                    title={(COLOUR_META[c] || {}).label || c}
+                    onClick={() => setSelectedColour(c)}
+                    className={`w-9 h-9 rounded-full border-2 transition-all ${
+                      selectedColour === c
+                        ? 'border-emerald-500 scale-110 shadow-md'
+                        : 'border-slate-200 hover:border-slate-400'
+                    }`}
+                    style={{ backgroundColor: meta.hex }}
+                  />
+                );
+              })}
             </div>
-          </aside>
+            <p className="text-center text-sm text-slate-500 mt-2">{colourLabel}</p>
+          </div>
 
-          <div className="flex-1">
-            <div className="flex justify-between items-center mb-6">
-              <p className="text-slate-600" data-testid="product-count">
-                {filteredProducts.length} products found
+          {/* Right: Selectors */}
+          <div className="space-y-8">
+
+            {/* Step 1: Generation */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
+                1 — Choose generation
               </p>
-              <Button
-                onClick={() => setShowFilters(true)}
-                variant="outline"
-                className="md:hidden rounded-full"
-                data-testid="show-filters-btn"
-              >
-                <Filter className="h-4 w-4 mr-2" />
-                Filters
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg"
-                  data-testid={`product-card-${product.id}`}
-                >
-                  <div
-                    className="relative h-56 cursor-pointer bg-slate-100 flex items-center justify-center"
-                    onClick={() => navigate(`/product/${product.id}`)}
+              <div className="flex flex-wrap gap-2">
+                {GENERATIONS.map((gen) => (
+                  <button
+                    key={gen}
+                    onClick={() => handleGenChange(gen)}
+                    className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
+                      selectedGen === gen
+                        ? 'bg-slate-900 text-white border-slate-900'
+                        : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
+                    }`}
                   >
-                    {product.image_url ? (
-                      <img
-                        src={product.image_url}
-                        alt={`${product.model} ${product.storage}`}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="text-slate-400 text-sm">No image</div>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <div className="mb-2">
-                      <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
-                        {product.condition}
-                      </span>
-                    </div>
-                    <h3
-                      className="font-bold text-slate-900 mb-1 cursor-pointer hover:text-slate-700"
-                      onClick={() => navigate(`/product/${product.id}`)}
-                      data-testid={`product-name-${product.id}`}
-                    >
-                      {product.model}
-                    </h3>
-                    <p className="text-sm text-slate-500 mb-3">
-                      {product.storage} · {product.color}
-                    </p>
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-2xl font-bold text-slate-900" data-testid={`product-price-${product.id}`}>
-                        R{product.price?.toLocaleString()}
-                      </span>
-                    </div>
-                    <Button
-                      onClick={() => handleAddToCart(product.id)}
-                      className="w-full rounded-full bg-slate-900 hover:bg-slate-800 text-white"
-                      data-testid={`add-to-cart-btn-${product.id}`}
-                    >
-                      Add to Cart
-                    </Button>
-                  </div>
-                </div>
-              ))}
+                    {gen}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {filteredProducts.length === 0 && (
-              <div className="text-center py-12" data-testid="no-products-message">
-                <p className="text-slate-600 text-lg">No products found matching your filters.</p>
-                <Button onClick={clearFilters} className="mt-4 rounded-full" data-testid="no-products-clear-btn">
-                  Clear Filters
-                </Button>
+            {/* Step 2: Variant */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
+                2 — Choose model
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {variants.map((v) => (
+                  <button
+                    key={v.slug}
+                    onClick={() => handleVariantChange(v.slug)}
+                    className={`px-4 py-3 rounded-2xl text-sm font-semibold border text-left transition-all ${
+                      selectedVariantSlug === v.slug
+                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
+                        : 'bg-white text-slate-700 border-slate-200 hover:border-emerald-300'
+                    }`}
+                  >
+                    {v.label}
+                  </button>
+                ))}
               </div>
-            )}
+            </div>
+
+            {/* Step 3: Colour */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
+                3 — Choose colour
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {variant.colours.map((c) => {
+                  const meta = COLOUR_META[c] || { label: c, hex: '#ccc' };
+                  return (
+                    <button
+                      key={c}
+                      onClick={() => setSelectedColour(c)}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium border transition-all ${
+                        selectedColour === c
+                          ? 'bg-slate-900 text-white border-slate-900'
+                          : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
+                      }`}
+                    >
+                      <span
+                        className="w-4 h-4 rounded-full inline-block border border-white/30 flex-shrink-0"
+                        style={{ backgroundColor: meta.hex }}
+                      />
+                      {meta.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Step 4: Storage */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
+                4 — Choose storage
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {variant.storages.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => setSelectedStorage(s)}
+                    className={`px-5 py-2 rounded-xl text-sm font-semibold border transition-all ${
+                      selectedStorage === s
+                        ? 'bg-slate-900 text-white border-slate-900'
+                        : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Summary + CTA */}
+            <div className="bg-white rounded-2xl border border-slate-200 p-6">
+              <div className="flex items-start justify-between mb-1">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900">{variant.label}</h2>
+                  <p className="text-slate-500 text-sm">
+                    {colourLabel} · {selectedStorage}
+                  </p>
+                </div>
+                <span className="text-2xl font-bold text-emerald-600">
+                  R{price.toLocaleString()}
+                </span>
+              </div>
+
+              <button
+                className="w-full mt-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 text-base font-semibold flex items-center justify-center gap-2 transition-colors"
+                onClick={() => {
+                  // wire up your cart context here
+                  alert(`Added: ${variant.label} ${colourLabel} ${selectedStorage} — R${price.toLocaleString()}`);
+                }}
+              >
+                <ShoppingCart className="h-4 w-4" />
+                Add to Cart
+              </button>
+
+              <Link
+                to={`/product/${variant.slug}?colour=${selectedColour}&storage=${selectedStorage}`}
+                className="flex items-center justify-center gap-1 mt-3 text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+              >
+                View full details <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
