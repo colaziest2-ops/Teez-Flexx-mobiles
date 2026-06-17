@@ -150,12 +150,12 @@ const ShopPage = () => {
 
           {/* Left: Image */}
           <div className="lg:sticky lg:top-24 order-1 lg:order-1">
-            <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 aspect-square overflow-hidden shadow-sm flex items-center justify-center">
+            <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 aspect-square overflow-hidden shadow-sm flex items-center justify-center p-4 sm:p-6">
               <img
                 key={imgSrc}
                 src={imgSrc}
                 alt={`${variant.label} in ${colourLabel}`}
-                className="w-full h-full object-cover transition-opacity duration-300"
+                className="w-full h-full object-contain transition-opacity duration-300"
                 onError={(e) => {
                   e.target.src =
                     'https://images.unsplash.com/photo-1592286927505-1def25115558?w=800';
