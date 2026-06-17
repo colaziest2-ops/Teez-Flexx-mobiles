@@ -1,24 +1,30 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 
 const WhatsAppButton = () => {
   const handleWhatsAppClick = () => {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '27123456789';
-    const message = encodeURIComponent('Hi, I have a question about your services.');
+    // Verified business number: 074 337 6552
+    const phoneNumber = '27743376552';
+    const message = encodeURIComponent("Hello Teez-Flexx Mobiles, I'd like to check stock and book a device viewing.");
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
 
   return (
-    <div
-      className="fixed bottom-6 right-6 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full p-4 shadow-lg cursor-pointer transition-all hover:scale-110 z-40"
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1, transition: { delay: 1.2, type: 'spring' } }}
+      whileTap={{ scale: 0.95 }}
+      className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white rounded-full shadow-2xl min-w-[52px] min-h-[52px] flex items-center justify-center touch-manipulation cursor-pointer hover:scale-110 transition-transform"
       onClick={handleWhatsAppClick}
       data-testid="whatsapp-button"
-      title="Chat with us on WhatsApp"
+      title="Chat with Teez-Flexx Mobiles on WhatsApp"
+      aria-label="Chat with Teez-Flexx Mobiles on WhatsApp"
     >
-      <MessageCircle className="h-7 w-7 text-white" />
-    </div>
+      <MessageCircle className="h-6 w-6 text-white fill-white" />
+    </motion.div>
   );
 };
 

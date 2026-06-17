@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
+    "./app/**/*.{js,jsx,ts,tsx}",
     "./public/index.html"
   ],
   theme: {
@@ -36,11 +37,21 @@ module.exports = {
           DEFAULT: "var(--card)",
           foreground: "var(--card-foreground)",
         },
+        brand: {
+          black: '#0B0B0B',
+          charcoal: '#161616',
+          gold: '#D4AF37',
+          goldLight: '#E5C158',
+          muted: '#8A8A8E',
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      minHeight: {
+        screenTouch: 'calc(100vh - 56px)',
       },
     },
   },

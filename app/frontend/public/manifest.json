@@ -1,0 +1,53 @@
+{
+  "name": "Teez-Flexx Mobiles",
+  "short_name": "Teez-Flexx",
+  "description": "South Africa's trusted iPhone specialist. Repair, Buy, Sell, and Custom Covers.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0B",
+  "theme_color": "#0B0B0B",
+  "orientation": "portrait",
+  "categories": ["shopping", "electronics", "utilities"],
+  "lang": "en-ZA",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icons/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book Repair",
+      "short_name": "Book",
+      "description": "Schedule a repair or device viewing appointment",
+      "url": "/book",
+      "icons": [{ "src": "/icons/shortcut-repair.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Shop iPhones",
+      "short_name": "Shop",
+      "description": "Browse pre-owned iPhones for sale",
+      "url": "/shop",
+      "icons": [{ "src": "/icons/shortcut-shop.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with Teez-Flexx",
+      "url": "/contact",
+      "icons": [{ "src": "/icons/shortcut-contact.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
