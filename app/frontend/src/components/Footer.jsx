@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
 const Footer = () => {
@@ -25,22 +25,22 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-white">Quick Links</h4>
             <ul className="space-y-2 text-brand-muted text-sm">
-              <li><Link href="/shop" className="hover:text-brand-gold transition-colors">Shop Pre-Owned iPhones</Link></li>
-              <li><Link href="/book" className="hover:text-brand-gold transition-colors">Book Appointment</Link></li>
-              <li><Link href="/covers" className="hover:text-brand-gold transition-colors">Phone Covers</Link></li>
-              <li><Link href="/repairs" className="hover:text-brand-gold transition-colors">Repair Services</Link></li>
-              <li><Link href="/trade-in" className="hover:text-brand-gold transition-colors">Sell Your iPhone</Link></li>
+              <li><Link to="/shop" className="hover:text-brand-gold transition-colors">Shop Pre-Owned iPhones</Link></li>
+              <li><Link to="/book" className="hover:text-brand-gold transition-colors">Book Appointment</Link></li>
+              <li><Link to="/covers" className="hover:text-brand-gold transition-colors">Phone Covers</Link></li>
+              <li><Link to="/repairs" className="hover:text-brand-gold transition-colors">Repair Services</Link></li>
+              <li><Link to="/trade-in" className="hover:text-brand-gold transition-colors">Sell Your iPhone</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4 text-white">Company</h4>
             <ul className="space-y-2 text-brand-muted text-sm">
-              <li><Link href="/about" className="hover:text-brand-gold transition-colors">About Us</Link></li>
-              <li><Link href="/contact" className="hover:text-brand-gold transition-colors">Contact</Link></li>
-              <li><Link href="/shipping" className="hover:text-brand-gold transition-colors">Delivery Info</Link></li>
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Terms of Service</a></li>
+              <li><Link to="/about" className="hover:text-brand-gold transition-colors">About Us</Link></li>
+              <li><Link to="/contact" className="hover:text-brand-gold transition-colors">Contact</Link></li>
+              <li><Link to="/shipping" className="hover:text-brand-gold transition-colors">Delivery Info</Link></li>
+              <li><Link to="/privacy" className="hover:text-brand-gold transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-brand-gold transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
 

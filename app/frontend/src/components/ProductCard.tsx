@@ -1,8 +1,5 @@
-'use client';
-
 import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Flame } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -26,15 +23,13 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
         </div>
       )}
 
-      <Link href={`/product/${product.id}`} className="block">
+      <Link to={`/product/${product.id}`} className="block">
         {/* Aspect-ratio container prevents cropping — full device always visible */}
         <div className="relative w-full aspect-[4/3] bg-black/30 p-6 overflow-hidden border-b border-white/5">
-          <Image
+          <img
             src={product.image}
             alt={`Teez-Flexx Premium Pre-owned ${product.model}`}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-contain transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
           />
         </div>
       </Link>

@@ -1,8 +1,5 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Home, ShoppingBag, Calendar, ShoppingCart, MessageCircle } from 'lucide-react';
 
@@ -14,7 +11,8 @@ const tabs = [
 ];
 
 export default function MobileTabBar() {
-  const pathname = usePathname();
+  const location = useLocation();
+  const pathname = location.pathname;
   const [cartCount, setCartCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -59,7 +57,7 @@ export default function MobileTabBar() {
           return (
             <Link
               key={tab.path}
-              href={tab.path}
+              to={tab.path}
               className="relative flex flex-col items-center py-2 px-3 min-w-[60px]"
             >
               <div className="relative">
