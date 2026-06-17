@@ -3,7 +3,7 @@ export interface Product {
   model: string;
   storage: string;
   price: number;
-  condition: 'Pre-owned';
+  condition: 'New' | 'Pre-owned';
   image: string;
   description: string;
   isPopular?: boolean;
@@ -11,7 +11,68 @@ export interface Product {
 }
 
 export const products: Product[] = [
-  // iPhone XR Series
+  // ─── NEW iPhones ───
+  {
+    id: 101,
+    model: 'iPhone 15',
+    storage: '128GB',
+    price: 12499,
+    condition: 'New',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
+    description: 'Brand New — Sealed with full Apple warranty',
+    isPopular: true,
+  },
+  {
+    id: 102,
+    model: 'iPhone 16',
+    storage: '128GB',
+    price: 15499,
+    condition: 'New',
+    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    description: 'Brand New — Sealed with full Apple warranty',
+    isPopular: true,
+  },
+  {
+    id: 103,
+    model: 'iPhone 17',
+    storage: '256GB',
+    price: 17999,
+    condition: 'New',
+    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    description: 'Brand New — Sealed with full Apple warranty',
+  },
+  {
+    id: 104,
+    model: 'iPhone 17 Pro',
+    storage: '256GB',
+    price: 24999,
+    condition: 'New',
+    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    description: 'Brand New — Sealed with full Apple warranty',
+    isPopular: true,
+  },
+  {
+    id: 105,
+    model: 'iPhone 17 Pro Max',
+    storage: '256GB',
+    price: 27999,
+    condition: 'New',
+    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    description: 'Brand New — Sealed with full Apple warranty',
+  },
+  {
+    id: 106,
+    model: 'iPhone 17 Pro Max',
+    storage: '512GB',
+    price: 32499,
+    condition: 'New',
+    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    description: 'Brand New — Sealed with full Apple warranty',
+  },
+
+  // ─── PRE-OWNED iPhones ───
+
+  // iPhone XR
   {
     id: 1,
     model: 'iPhone XR',
@@ -31,7 +92,7 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
 
-  // iPhone 11 Series
+  // iPhone 11
   {
     id: 3,
     model: 'iPhone 11',
@@ -62,6 +123,15 @@ export const products: Product[] = [
   },
   {
     id: 6,
+    model: 'iPhone 11 Pro',
+    storage: '256GB',
+    price: 6000,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+  {
+    id: 7,
     model: 'iPhone 11 Pro Max',
     storage: '64GB',
     price: 7500,
@@ -70,7 +140,7 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
-    id: 7,
+    id: 8,
     model: 'iPhone 11 Pro Max',
     storage: '256GB',
     price: 8000,
@@ -79,9 +149,9 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
 
-  // iPhone 12 Series
+  // iPhone 12
   {
-    id: 8,
+    id: 9,
     model: 'iPhone 12',
     storage: '64GB',
     price: 5600,
@@ -90,7 +160,7 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
-    id: 9,
+    id: 10,
     model: 'iPhone 12',
     storage: '128GB',
     price: 6000,
@@ -100,7 +170,7 @@ export const products: Product[] = [
     isPopular: true,
   },
   {
-    id: 10,
+    id: 11,
     model: 'iPhone 12 Pro Max',
     storage: '128GB',
     price: 9500,
@@ -109,7 +179,7 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
-    id: 11,
+    id: 12,
     model: 'iPhone 12 Pro Max',
     storage: '256GB',
     price: 10000,
@@ -118,9 +188,9 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
 
-  // iPhone 13 Series
+  // iPhone 13
   {
-    id: 12,
+    id: 13,
     model: 'iPhone 13',
     storage: '128GB',
     price: 7500,
@@ -130,7 +200,16 @@ export const products: Product[] = [
     isPopular: true,
   },
   {
-    id: 13,
+    id: 14,
+    model: 'iPhone 13',
+    storage: '256GB',
+    price: 8000,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+  {
+    id: 15,
     model: 'iPhone 13 Pro',
     storage: '128GB',
     price: 10000,
@@ -139,16 +218,16 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
-    id: 14,
+    id: 16,
     model: 'iPhone 13 Pro',
     storage: '256GB',
-    price: 11000,
+    price: 10500,
     condition: 'Pre-owned',
     image: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
-    id: 15,
+    id: 17,
     model: 'iPhone 13 Pro Max',
     storage: '128GB',
     price: 11500,
@@ -157,7 +236,7 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
-    id: 16,
+    id: 18,
     model: 'iPhone 13 Pro Max',
     storage: '256GB',
     price: 12000,
@@ -166,9 +245,9 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
 
-  // iPhone 14 Series
+  // iPhone 14
   {
-    id: 17,
+    id: 19,
     model: 'iPhone 14',
     storage: '128GB',
     price: 8500,
@@ -178,7 +257,7 @@ export const products: Product[] = [
     isPopular: true,
   },
   {
-    id: 18,
+    id: 20,
     model: 'iPhone 14 Pro',
     storage: '128GB',
     price: 12500,
@@ -187,18 +266,36 @@ export const products: Product[] = [
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
-    id: 19,
+    id: 21,
+    model: 'iPhone 14 Pro',
+    storage: '256GB',
+    price: 13000,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+  {
+    id: 22,
     model: 'iPhone 14 Pro Max',
     storage: '128GB',
-    price: 14500,
+    price: 13000,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+  {
+    id: 23,
+    model: 'iPhone 14 Pro Max',
+    storage: '256GB',
+    price: 13500,
     condition: 'Pre-owned',
     image: 'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
 
-  // iPhone 15 Series
+  // iPhone 15
   {
-    id: 20,
+    id: 24,
     model: 'iPhone 15',
     storage: '128GB',
     price: 11000,
@@ -208,16 +305,34 @@ export const products: Product[] = [
     isPopular: true,
   },
   {
-    id: 21,
+    id: 25,
+    model: 'iPhone 15',
+    storage: '256GB',
+    price: 11500,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+  {
+    id: 26,
     model: 'iPhone 15 Pro',
     storage: '128GB',
+    price: 14000,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+  {
+    id: 27,
+    model: 'iPhone 15 Pro',
+    storage: '256GB',
     price: 14500,
     condition: 'Pre-owned',
     image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
-    id: 22,
+    id: 28,
     model: 'iPhone 15 Pro Max',
     storage: '256GB',
     price: 18000,
@@ -225,10 +340,19 @@ export const products: Product[] = [
     image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
-
-  // iPhone 16 Series
   {
-    id: 23,
+    id: 29,
+    model: 'iPhone 15 Pro Max',
+    storage: '512GB',
+    price: 19000,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+
+  // iPhone 16
+  {
+    id: 30,
     model: 'iPhone 16',
     storage: '128GB',
     price: 12500,
@@ -238,19 +362,46 @@ export const products: Product[] = [
     isPopular: true,
   },
   {
-    id: 24,
-    model: 'iPhone 16 Pro',
-    storage: '128GB',
-    price: 17000,
+    id: 31,
+    model: 'iPhone 16',
+    storage: '256GB',
+    price: 13000,
     condition: 'Pre-owned',
     image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
-    id: 25,
+    id: 32,
+    model: 'iPhone 16 Plus',
+    storage: '128GB',
+    price: 13500,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+  {
+    id: 33,
+    model: 'iPhone 16 Plus',
+    storage: '256GB',
+    price: 14000,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+  {
+    id: 34,
     model: 'iPhone 16 Pro Max',
     storage: '256GB',
     price: 20000,
+    condition: 'Pre-owned',
+    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
+  },
+  {
+    id: 35,
+    model: 'iPhone 16 Pro Max',
+    storage: '512GB',
+    price: 21500,
     condition: 'Pre-owned',
     image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
@@ -265,5 +416,13 @@ export const getProductsByModel = (model: string): Product[] => {
   return products.filter(p => p.model.includes(model));
 };
 
+export const getNewProducts = (): Product[] => {
+  return products.filter(p => p.condition === 'New');
+};
+
+export const getPreOwnedProducts = (): Product[] => {
+  return products.filter(p => p.condition === 'Pre-owned');
+};
+
 export const storages = ['64GB', '128GB', '256GB', '512GB', '1TB'];
-export const models = ['XR', '11', '12', '13', '14', '15', '16'];
+export const models = ['XR', '11', '12', '13', '14', '15', '16', '17'];
