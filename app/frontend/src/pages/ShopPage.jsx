@@ -145,12 +145,12 @@ const ShopPage = () => {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-10">
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 items-start">
 
           {/* Left: Image */}
-          <div className="sticky top-24">
-            <div className="bg-white rounded-3xl border border-slate-100 aspect-square overflow-hidden shadow-sm flex items-center justify-center">
+          <div className="lg:sticky lg:top-24 order-1 lg:order-1">
+            <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 aspect-square overflow-hidden shadow-sm flex items-center justify-center">
               <img
                 key={imgSrc}
                 src={imgSrc}
@@ -163,8 +163,8 @@ const ShopPage = () => {
               />
             </div>
 
-            {/* Colour dots */}
-            <div className="flex gap-2 mt-4 flex-wrap justify-center">
+            {/* Colour dots - Mobile: show below image, Desktop: same */}
+            <div className="flex gap-2 mt-3 sm:mt-4 flex-wrap justify-center">
               {variant.colours.map((c) => {
                 const meta = COLOUR_META[c] || { hex: '#ccc' };
                 return (
@@ -172,7 +172,7 @@ const ShopPage = () => {
                     key={c}
                     title={(COLOUR_META[c] || {}).label || c}
                     onClick={() => setSelectedColour(c)}
-                    className={`w-9 h-9 rounded-full border-2 transition-all ${
+                    className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 transition-all touch-manipulation ${
                       selectedColour === c
                         ? 'border-emerald-500 scale-110 shadow-md'
                         : 'border-slate-200 hover:border-slate-400'
@@ -186,7 +186,7 @@ const ShopPage = () => {
           </div>
 
           {/* Right: Selectors */}
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8 order-2 lg:order-2">
 
             {/* Step 1: Generation */}
             <div>
@@ -198,7 +198,7 @@ const ShopPage = () => {
                   <button
                     key={gen}
                     onClick={() => handleGenChange(gen)}
-                    className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
+                    className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border transition-all touch-manipulation min-h-[40px] ${
                       selectedGen === gen
                         ? 'bg-slate-900 text-white border-slate-900'
                         : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
@@ -215,12 +215,12 @@ const ShopPage = () => {
               <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
                 2 — Choose model
               </p>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-3">
                 {variants.map((v) => (
                   <button
                     key={v.slug}
                     onClick={() => handleVariantChange(v.slug)}
-                    className={`px-4 py-3 rounded-2xl text-sm font-semibold border text-left transition-all ${
+                    className={`px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold border text-left transition-all touch-manipulation min-h-[44px] ${
                       selectedVariantSlug === v.slug
                         ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
                         : 'bg-white text-slate-700 border-slate-200 hover:border-emerald-300'
@@ -244,7 +244,7 @@ const ShopPage = () => {
                     <button
                       key={c}
                       onClick={() => setSelectedColour(c)}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium border transition-all ${
+                      className={`flex items-center gap-2 px-2 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all touch-manipulation min-h-[40px] ${
                         selectedColour === c
                           ? 'bg-slate-900 text-white border-slate-900'
                           : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
@@ -254,7 +254,8 @@ const ShopPage = () => {
                         className="w-4 h-4 rounded-full inline-block border border-white/30 flex-shrink-0"
                         style={{ backgroundColor: meta.hex }}
                       />
-                      {meta.label}
+                      <span className="hidden sm:inline">{meta.label}</span>
+                      <span className="sm:hidden">{meta.label.split(' ')[0]}</span>
                     </button>
                   );
                 })}
@@ -271,7 +272,7 @@ const ShopPage = () => {
                   <button
                     key={s}
                     onClick={() => setSelectedStorage(s)}
-                    className={`px-5 py-2 rounded-xl text-sm font-semibold border transition-all ${
+                    className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold border transition-all touch-manipulation min-h-[40px] ${
                       selectedStorage === s
                         ? 'bg-slate-900 text-white border-slate-900'
                         : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
@@ -284,21 +285,21 @@ const ShopPage = () => {
             </div>
 
             {/* Summary + CTA */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6">
+            <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6">
               <div className="flex items-start justify-between mb-1">
                 <div>
-                  <h2 className="text-xl font-bold text-slate-900">{variant.label}</h2>
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900">{variant.label}</h2>
                   <p className="text-slate-500 text-sm">
                     {colourLabel} · {selectedStorage}
                   </p>
                 </div>
-                <span className="text-2xl font-bold text-emerald-600">
+                <span className="text-xl sm:text-2xl font-bold text-emerald-600">
                   R{price.toLocaleString()}
                 </span>
               </div>
 
               <button
-                className="w-full mt-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 text-base font-semibold flex items-center justify-center gap-2 transition-colors"
+                className="w-full mt-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors touch-manipulation min-h-[48px]"
                 onClick={() => {
                   // wire up your cart context here
                   alert(`Added: ${variant.label} ${colourLabel} ${selectedStorage} — R${price.toLocaleString()}`);
