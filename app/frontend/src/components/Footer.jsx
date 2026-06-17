@@ -8,10 +8,14 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="bg-brand-gold text-brand-black w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg">
-                TF
-              </div>
+            <div className="flex items-center space-x-3 mb-4">
+              <img
+                src="/Teez_Flexx-Mobiles.jpeg"
+                alt="Teez-Flexx Mobiles"
+                width={48}
+                height={48}
+                className="rounded-xl object-cover w-12 h-12"
+              />
               <div>
                 <h3 className="text-lg font-bold">Teez-Flexx</h3>
                 <p className="text-xs text-brand-muted">iPhone Specialists</p>

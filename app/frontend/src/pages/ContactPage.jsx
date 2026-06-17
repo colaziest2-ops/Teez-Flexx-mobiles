@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 
 const ContactPage = () => {
   const handleWhatsApp = () => {
-    const phoneNumber = '27123456789';
-    const message = encodeURIComponent('Hi, I have a question about your services.');
+    const phoneNumber = '27743376552';
+    const message = encodeURIComponent('Hi Teez-Flexx, I have a question about your services.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
 
@@ -33,8 +33,8 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900 mb-1">Phone</p>
-                    <p className="text-slate-600">+27 123 456 789</p>
-                    <p className="text-sm text-slate-500">Mon-Fri, 9AM-6PM</p>
+                    <a href="tel:+27743376552" className="text-slate-600 hover:text-emerald-600 transition-colors">074 337 6552</a>
+                    <p className="text-sm text-slate-500">Mon-Fri, 9AM-5PM | Sat, 9AM-1PM</p>
                   </div>
                 </div>
 
@@ -44,7 +44,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900 mb-1">Email</p>
-                    <p className="text-slate-600">info@teezflexx.co.za</p>
+                    <a href="mailto:teezflexxmobiles@gmail.com" className="text-slate-600 hover:text-emerald-600 transition-colors">teezflexxmobiles@gmail.com</a>
                     <p className="text-sm text-slate-500">Response within 24 hours</p>
                   </div>
                 </div>
@@ -55,8 +55,9 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900 mb-1">Location</p>
-                    <p className="text-slate-600">123 Main Street</p>
-                    <p className="text-slate-600">Cape Town, 8000</p>
+                    <p className="text-slate-600">8 Coronation Road</p>
+                    <p className="text-slate-600">Scottsville, Pietermaritzburg</p>
+                    <p className="text-slate-600">KwaZulu-Natal, 3201</p>
                     <p className="text-slate-600">South Africa</p>
                   </div>
                 </div>
@@ -67,8 +68,8 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900 mb-1">Business Hours</p>
-                    <p className="text-slate-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                    <p className="text-slate-600">Saturday: 10:00 AM - 4:00 PM</p>
+                    <p className="text-slate-600">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                    <p className="text-slate-600">Saturday: 9:00 AM - 1:00 PM</p>
                     <p className="text-slate-600">Sunday: Closed</p>
                   </div>
                 </div>
@@ -99,15 +100,16 @@ const ContactPage = () => {
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold text-slate-900 mb-2">Teez-Flexx Mobiles</h3>
-                <p className="text-slate-600">123 Main Street, Cape Town, 8000</p>
+                <p className="text-slate-600">8 Coronation Road, Scottsville, Pietermaritzburg 3201</p>
+                <p className="text-slate-600 mt-1"><a href="tel:+27743376552" className="text-emerald-600 hover:underline">074 337 6552</a></p>
               </div>
               <div>
                 <h4 className="font-semibold text-slate-900 mb-2">How to Find Us</h4>
                 <ul className="space-y-2 text-slate-600">
-                  <li>• Located in the heart of Cape Town CBD</li>
-                  <li>• 5 minutes walk from Cape Town Station</li>
-                  <li>• Parking available nearby</li>
-                  <li>• Wheelchair accessible</li>
+                  <li>• Located in Scottsville, Pietermaritzburg</li>
+                  <li>• By appointment only - please book ahead</li>
+                  <li>• Street parking available</li>
+                  <li>• Courier services available nationwide</li>
                 </ul>
               </div>
             </div>

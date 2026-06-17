@@ -18,6 +18,7 @@ import CoversPage from '@/pages/CoversPage';
 import RepairsPage from '@/pages/RepairsPage';
 import AboutPage from '@/pages/AboutPage';
 import ContactPage from '@/pages/ContactPage';
+import BookPage from '@/pages/BookPage';
 import AdminPage from '@/pages/AdminPage';
 import '@/App.css';
 
@@ -41,6 +42,7 @@ function App() {
               <Route path="/repairs" element={<RepairsPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/book" element={<BookPage />} />
               <Route path="/admin" element={<AdminPage />} />
             </Routes>
             <Footer />
