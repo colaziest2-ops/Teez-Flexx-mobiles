@@ -35,6 +35,9 @@ const COLOUR_META = {
   'starlight':          { label: 'Starlight',          hex: '#f1ece2' },
   'midnight':           { label: 'Midnight',           hex: '#1a2232' },
   'coral':              { label: 'Coral',              hex: '#ff6b6b' },
+  'lavender':           { label: 'Lavender',           hex: '#b5a0d4' },
+  'cosmic-orange':      { label: 'Cosmic Orange',      hex: '#e8601c' },
+  'deep-blue':          { label: 'Deep Blue',          hex: '#1b3a6b' },
 };
 
 /* ─── NEW iPhones Data ─── */
@@ -48,15 +51,15 @@ const NEW_IPHONE_DATA = {
   'iPhone 16': {
     generation: 16,
     variants: [
-      { slug: 'iphone-16', label: 'iPhone 16', colours: ['black','white','ultramarine','teal','pink'], storages: ['128GB'], prices: { '128GB': 15499 } },
+      { slug: 'iphone-16', label: 'iPhone 16', colours: ['black','white','ultramarine','teal','pink'], storages: ['128GB','256GB'], prices: { '128GB': 15499, '256GB': 17499 } },
     ],
   },
   'iPhone 17': {
     generation: 17,
     variants: [
-      { slug: 'iphone-17',         label: 'iPhone 17',         colours: ['black','white','green','blue','pink'],                                      storages: ['256GB'],          prices: { '256GB': 17999 } },
-      { slug: 'iphone-17-pro',     label: 'iPhone 17 Pro',     colours: ['black-titanium','white-titanium','natural-titanium','desert-titanium'],     storages: ['256GB'],          prices: { '256GB': 24999 } },
-      { slug: 'iphone-17-pro-max', label: 'iPhone 17 Pro Max', colours: ['black-titanium','white-titanium','natural-titanium','desert-titanium'],     storages: ['256GB','512GB'],  prices: { '256GB': 27999, '512GB': 32499 } },
+      { slug: 'iphone-17',         label: 'iPhone 17',         colours: ['black','white','lavender'],                          storages: ['256GB'],         prices: { '256GB': 17999 } },
+      { slug: 'iphone-17-pro',     label: 'iPhone 17 Pro',     colours: ['silver','cosmic-orange','deep-blue'],               storages: ['256GB'],         prices: { '256GB': 24999 } },
+      { slug: 'iphone-17-pro-max', label: 'iPhone 17 Pro Max', colours: ['silver','cosmic-orange','deep-blue'],               storages: ['256GB','512GB'], prices: { '256GB': 27999, '512GB': 32499 } },
     ],
   },
 };
@@ -123,6 +126,38 @@ function getGenerations(data) {
   return Object.keys(data).sort(
     (a, b) => data[b].generation - data[a].generation
   );
+}
+
+/* Fallback images per model family when Supabase image is missing */
+const FALLBACK_IMAGES = {
+  'iphone-17-pro-max': 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800',
+  'iphone-17-pro':     'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800',
+  'iphone-17':         'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=800',
+  'iphone-16-pro-max': 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=800',
+  'iphone-16-pro':     'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=800',
+  'iphone-16-plus':    'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=800',
+  'iphone-16':         'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=800',
+  'iphone-15-pro-max': 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=800',
+  'iphone-15-pro':     'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=800',
+  'iphone-15-plus':    'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=800',
+  'iphone-15':         'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=800',
+  'iphone-14-pro-max': 'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=800',
+  'iphone-14-pro':     'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=800',
+  'iphone-14-plus':    'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=800',
+  'iphone-14':         'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=800',
+  'iphone-13-pro-max': 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=800',
+  'iphone-13-pro':     'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=800',
+  'iphone-13':         'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=800',
+  'iphone-12-pro-max': 'https://images.unsplash.com/photo-1605559424843-9e4c3ca3806d?w=800',
+  'iphone-12':         'https://images.unsplash.com/photo-1605559424843-9e4c3ca3806d?w=800',
+  'iphone-11-pro-max': 'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=800',
+  'iphone-11-pro':     'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=800',
+  'iphone-11':         'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=800',
+  'iphone-xr':         'https://images.unsplash.com/photo-1556656793-02771a883d33?w=800',
+};
+
+function getFallbackImage(modelSlug) {
+  return FALLBACK_IMAGES[modelSlug] || 'https://images.unsplash.com/photo-1592286927505-1def25115558?w=800';
 }
 
 function imageUrl(modelSlug, colourSlug) {
@@ -247,8 +282,8 @@ const ShopPage = () => {
                 alt={`${variant.label} in ${colourLabel}`}
                 className="w-full h-full object-contain transition-opacity duration-300"
                 onError={(e) => {
-                  e.target.src =
-                    'https://images.unsplash.com/photo-1592286927505-1def25115558?w=800';
+                  e.target.onerror = null;
+                  e.target.src = getFallbackImage(variant.slug);
                 }}
               />
             </div>

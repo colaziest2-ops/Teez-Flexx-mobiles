@@ -88,11 +88,11 @@ const AboutPage = () => {
               <p className="text-emerald-100">Years in Business</p>
             </div>
             <div data-testid="stat-customers">
-              <div className="text-5xl font-bold mb-2">15K+</div>
+              <div className="text-5xl font-bold mb-2">500+</div>
               <p className="text-emerald-100">Happy Customers</p>
             </div>
             <div data-testid="stat-repairs">
-              <div className="text-5xl font-bold mb-2">20K+</div>
+              <div className="text-5xl font-bold mb-2">Hundreds</div>
               <p className="text-emerald-100">Devices Serviced</p>
             </div>
           </div>

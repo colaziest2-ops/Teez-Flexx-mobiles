@@ -10,14 +10,14 @@ const RepairsPage = () => {
     {
       icon: Smartphone,
       title: 'Screen Replacement',
-      description: 'Cracked or damaged screen? We use genuine parts for perfect display quality.',
+      description: 'Cracked or damaged screen? We use high-quality parts for excellent display performance.',
       price: 'From R1,200',
       duration: 'Same day'
     },
     {
       icon: Battery,
       title: 'Battery Replacement',
-      description: 'Poor battery life? Replace your battery with genuine Apple-quality batteries.',
+      description: 'Poor battery life? Replace your battery with a high-quality replacement battery (OEM standard).',
       price: 'From R800',
       duration: '1-2 hours'
     },
@@ -103,11 +103,11 @@ const RepairsPage = () => {
           </div>
           <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center" data-testid="parts-info">
             <div className="text-4xl font-bold text-emerald-600 mb-2">100%</div>
-            <p className="text-slate-600">Genuine quality parts</p>
+            <p className="text-slate-600">High-quality parts used</p>
           </div>
           <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center" data-testid="service-info">
-            <div className="text-4xl font-bold text-emerald-600 mb-2">5000+</div>
-            <p className="text-slate-600">Repairs completed</p>
+            <div className="text-4xl font-bold text-emerald-600 mb-2">Hundreds</div>
+            <p className="text-slate-600">of repairs completed</p>
           </div>
         </div>
 
