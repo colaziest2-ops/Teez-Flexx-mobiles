@@ -29,20 +29,20 @@ const HomePage = () => {
     },
     {
       id: 'sell',
-      title: 'Sell Your iPhone',
-      description: 'Get an instant quote and the best trade-in value for your old iPhone',
+      title: 'Get an In-Person Offer',
+      description: 'Bring your iPhone in and we\'ll give you a fair, honest offer on the spot',
       icon: TrendingUp,
       color: 'bg-gradient-to-br from-purple-50 to-purple-100',
       iconColor: 'text-purple-600',
       path: '/trade-in',
-      image: 'https://images.pexels.com/photos/8473866/pexels-photo-8473866.jpeg?w=800'
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800'
     }
   ];
 
   const trustSignals = [
     { icon: Clock, text: 'Same-day diagnostics' },
     { icon: Shield, text: 'Warranty on all repairs' },
-    { icon: Award, text: 'Best prices for trade-ins' }
+    { icon: Award, text: 'Fair in-person iPhone offers' }
   ];
 
   const featuredCovers = [
@@ -72,10 +72,10 @@ const HomePage = () => {
             Teez-Flexx Mobiles
           </h1>
           <p className="text-lg sm:text-xl text-slate-600 mb-4 font-medium">
-            Repair • Buy • Sell • Custom Covers
+            Repair • Buy • Custom Covers • In-Person Offers
           </p>
           <p className="text-base text-slate-500 max-w-2xl mx-auto">
-            South Africa's trusted iPhone specialist. Professional repairs, quality devices, and fair trade-in prices.
+            South Africa's trusted iPhone specialist. Professional repairs, quality devices, and fair in-person offers.
           </p>
         </div>
       </section>

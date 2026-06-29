@@ -22,7 +22,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-brand-muted text-sm">
-              South Africa&apos;s trusted iPhone specialist for repairs, sales, trade-ins, and custom covers.
+              South Africa&apos;s trusted iPhone specialist for repairs, sales, in-person offers, and custom covers.
             </p>
           </div>
 
@@ -33,7 +33,7 @@ const Footer = () => {
               <li><Link to="/book" className="hover:text-brand-gold transition-colors">Book Appointment</Link></li>
               <li><Link to="/covers" className="hover:text-brand-gold transition-colors">Phone Covers</Link></li>
               <li><Link to="/repairs" className="hover:text-brand-gold transition-colors">Repair Services</Link></li>
-              <li><Link to="/trade-in" className="hover:text-brand-gold transition-colors">Sell Your iPhone</Link></li>
+              <li><Link to="/trade-in" className="hover:text-brand-gold transition-colors">Get an In-Person Offer</Link></li>
             </ul>
           </div>
 

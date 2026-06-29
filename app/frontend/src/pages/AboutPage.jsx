@@ -33,7 +33,7 @@ const AboutPage = () => {
             About Teez-Flexx Mobiles
           </h1>
           <p className="text-slate-600 max-w-3xl mx-auto text-lg">
-            South Africa's trusted iPhone specialist. We've been serving customers across South Africa with professional repair services, quality devices, and fair trade-in prices since 2015.
+            South Africa's trusted iPhone specialist. We've been serving customers across South Africa with professional repair services, quality devices, and fair in-person offers since 2015.
           </p>
         </div>
 
@@ -51,10 +51,10 @@ const AboutPage = () => {
               Founded in 2015, Teez-Flexx Mobiles started with a simple mission: to provide South Africans with reliable iPhone repair services and access to quality devices at fair prices.
             </p>
             <p className="text-slate-600 mb-4">
-              Over the years, we've grown from a small repair shop to a full-service iPhone specialist, helping thousands of customers repair, buy, and sell their devices.
+              Over the years, we've grown from a small repair shop to a full-service iPhone specialist, helping hundreds of customers repair and buy their devices.
             </p>
             <p className="text-slate-600">
-              Today, we're proud to be one of South Africa's most trusted names in the iPhone industry, known for our expertise, transparency, and commitment to customer satisfaction.
+              Today, we're proud to be a trusted name in the iPhone industry in Pietermaritzburg, known for our expertise, transparency, and commitment to customer satisfaction.
             </p>
           </div>
         </div>
