@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Flame } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { getFallbackImage } from '@/lib/imageUtils';
 import type { Product } from '@/data/products';
 
 interface ProductCardProps {
@@ -30,6 +31,11 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
             src={product.image}
             alt={`Teez-Flexx Premium Pre-owned ${product.model}`}
             className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              const slug = product.model.toLowerCase().replace(/\s+/g, '-');
+              e.currentTarget.src = getFallbackImage(slug);
+            }}
           />
         </div>
       </Link>

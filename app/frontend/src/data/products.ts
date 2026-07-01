@@ -28,7 +28,7 @@ export const products: Product[] = [
     storage: '128GB',
     price: 15499,
     condition: 'New',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
     description: 'Brand New — Sealed with full Apple warranty',
     isPopular: true,
   },
@@ -38,7 +38,7 @@ export const products: Product[] = [
     storage: '256GB',
     price: 17999,
     condition: 'New',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500',
     description: 'Brand New — Sealed with full Apple warranty',
   },
   {
@@ -47,7 +47,7 @@ export const products: Product[] = [
     storage: '256GB',
     price: 24999,
     condition: 'New',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500',
     description: 'Brand New — Sealed with full Apple warranty',
     isPopular: true,
   },
@@ -57,7 +57,7 @@ export const products: Product[] = [
     storage: '256GB',
     price: 27999,
     condition: 'New',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500',
     description: 'Brand New — Sealed with full Apple warranty',
   },
   {
@@ -66,7 +66,7 @@ export const products: Product[] = [
     storage: '512GB',
     price: 32499,
     condition: 'New',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500',
     description: 'Brand New — Sealed with full Apple warranty',
   },
 
@@ -79,7 +79,7 @@ export const products: Product[] = [
     storage: '64GB',
     price: 3700,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1556656793-02771a883d33?w=500',
+    image: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -88,7 +88,7 @@ export const products: Product[] = [
     storage: '128GB',
     price: 4500,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1556656793-02771a883d33?w=500',
+    image: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
 
@@ -99,7 +99,7 @@ export const products: Product[] = [
     storage: '64GB',
     price: 4700,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -108,7 +108,7 @@ export const products: Product[] = [
     storage: '128GB',
     price: 5500,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
     isPopular: true,
   },
@@ -118,7 +118,7 @@ export const products: Product[] = [
     storage: '64GB',
     price: 5500,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -127,7 +127,7 @@ export const products: Product[] = [
     storage: '256GB',
     price: 6000,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -136,7 +136,7 @@ export const products: Product[] = [
     storage: '64GB',
     price: 7500,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -145,7 +145,7 @@ export const products: Product[] = [
     storage: '256GB',
     price: 8000,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1573920111312-04f1d1e45d9d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
 
@@ -156,7 +156,7 @@ export const products: Product[] = [
     storage: '64GB',
     price: 5600,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c3ca3806d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -165,7 +165,7 @@ export const products: Product[] = [
     storage: '128GB',
     price: 6000,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c3ca3806d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
     isPopular: true,
   },
@@ -175,7 +175,7 @@ export const products: Product[] = [
     storage: '128GB',
     price: 9500,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c3ca3806d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -184,7 +184,7 @@ export const products: Product[] = [
     storage: '256GB',
     price: 10000,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c3ca3806d?w=500',
+    image: 'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
 
@@ -357,7 +357,7 @@ export const products: Product[] = [
     storage: '128GB',
     price: 12500,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
     isPopular: true,
   },
@@ -367,7 +367,7 @@ export const products: Product[] = [
     storage: '256GB',
     price: 13000,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -376,7 +376,7 @@ export const products: Product[] = [
     storage: '128GB',
     price: 13500,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -385,7 +385,7 @@ export const products: Product[] = [
     storage: '256GB',
     price: 14000,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -394,7 +394,7 @@ export const products: Product[] = [
     storage: '256GB',
     price: 20000,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
   {
@@ -403,7 +403,7 @@ export const products: Product[] = [
     storage: '512GB',
     price: 21500,
     condition: 'Pre-owned',
-    image: 'https://images.unsplash.com/photo-1726486369031-8941f8e00b3d?w=500',
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500',
     description: 'Included: Charger • Screen Protector & Case • 3-Month Warranty',
   },
 ];
